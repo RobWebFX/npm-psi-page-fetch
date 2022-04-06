@@ -1,0 +1,16 @@
+{
+	"name": "psi_via_npm",
+	"version": "0.0.1",
+	"description": "Small NodeJS script to fetch PSI values for URL",
+	"main": "app.js",
+	"type": "module",
+	"scripts": {
+		"psi": "node app.js"
+	},
+	"author": "rob@webfx.com",
+	"license": "ISC",
+	"dependencies": {
+		"@colors/colors": "^1.5.0",
+		"psi": "^4.1.0"
+	}
+}
