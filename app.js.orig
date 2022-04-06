@@ -1,0 +1,64 @@
+/**
+ * @see https://github.com/GoogleChromeLabs/psi
+ */
+
+
+import dotenv from 'dotenv'
+import psi from 'psi'
+
+
+( async () => {
+
+	// grabs Google API key from .env
+	dotenv.config()
+
+	const apiKey	= process.env.GOOGLE_API_KEY
+	const urlArgs	= process.argv.slice( 2 )
+
+	if( !urlArgs.length ) {
+		console.warn( 'Pass target URL as CLI argument (e.g. "npm run fetch webfx.com webfx.com/seo")' )
+		return
+	}
+
+	// todo — refactor to include async and avoid try/catch terror
+	for( let urlArg of urlArgs ) {
+		let url
+
+		// add protocol in case only domain is passed
+		if( 0 !== urlArg.indexOf( 'https://' ) && 0 !== urlArg.indexOf( 'http://' ) ) {
+			urlArg = `https://${urlArg}`
+		}
+	
+		// URL obj will validate URL for us
+		try {
+			const urlObj = new URL( urlArg )
+			url = urlObj.toString()
+		} catch( err ) {
+			console.warn( `Invalid URL: "${urlArg}"` )
+			continue
+		}
+	
+		try {
+			console.log( `Fetching mobile results for "${url}" ...`)
+			await psi.output( url, {
+				key: 		apiKey,
+				strategy: 	'mobile',
+				threshold: 	70, // minimum goal score (will throw error if less than)
+			})
+		} catch( err ) {
+			console.warn( err.message )
+		}
+	
+		try {
+			console.log( `Fetching desktop results for "${url}" ...`)
+			await psi.output( url, {
+				key: 		apiKey,
+				strategy: 	'desktop',
+				threshold: 	50, // minimum goal score (will throw error if less than)
+			})			
+		} catch( err ) {
+			console.warn( err.message )
+		}
+	}
+	
+}) ()

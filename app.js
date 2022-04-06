@@ -6,10 +6,15 @@
 import logger from './helpers/logger.mjs'
 import pageToFetch from './helpers/pageToFetch.mjs'
 import displayResults from './helpers/displayResults.mjs'
+import dotenv from 'dotenv'
 
 
 ( async () => {
-	let urlArgs = process.argv.slice( 2 )
+
+	// grabs Google API key from .env
+	dotenv.config()
+
+	const urlArgs = process.argv.slice( 2 )
 
 	if( !urlArgs.length ) {
 		logger.warn( 'Pass target URL as CLI argument (e.g. "npm run fetch webfx.com webfx.com/seo")' )
@@ -22,10 +27,7 @@ import displayResults from './helpers/displayResults.mjs'
 		urlArgs.forEach( urlArg => {
 
 			// add protocol in case only domain is passed
-			if( 
-				0 !== urlArg.indexOf( 'https://' ) && 
-				0 !== urlArg.indexOf( 'http://' ) 
-			) {
+			if( 0 !== urlArg.indexOf( 'https://' ) && 0 !== urlArg.indexOf( 'http://' ) ) {
 				urlArg = `https://${urlArg}`
 			}
 

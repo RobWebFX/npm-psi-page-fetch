@@ -4,20 +4,26 @@ import logger from './logger.mjs'
 
 const fetchPsi = {
 
-	async desktop( url ) {
-		return await this.fetch( url, 'desktop' )
+	async desktop( url, threshold = 50 ) {
+		return await this.fetch( url, 'desktop', threshold )
 	},
 
 
-	async mobile( url ) {
-		return await this.fetch( url, 'mobile' )
+	async mobile( url, threshold = 70 ) {
+		return await this.fetch( url, 'mobile', threshold )
 	},	
 
 
-	async fetch( url, strategy ) {
+	async fetch( url, strategy, threshold = 70 ) {
+		const key = process.env.GOOGLE_API_KEY
+
 		logger.update( `Fetching ${strategy} data for "${url}" ...` )
 
-		const { data } = await psi( url, { strategy })
+		const { data } = await psi( url, { 
+			key,
+			strategy, 
+			threshold, 
+		})
 
 		logger.update( `Received ${strategy} data for "${url}"! Parsing results ...` )
 
