@@ -5,10 +5,10 @@ Fetch scores for Pagespeed Insights by page URL(s) via npm
 
 Fetch scores for only https://webfx.com.
 ```
-npm run fetch webfx.com
+npm run psi webfx.com
 ```
 
 Fetch scores for multiple URLs.
 ```
-npm run fetch webfx.com webfx.com/seo webfx.com/development
+npm run psi webfx.com webfx.com/seo webfx.com/development
 ```
