@@ -1,7 +1,7 @@
 {
 	"name": "psi_via_npm",
 	"version": "0.0.1",
-	"description": "Small NodeJS script to fetch PSI values for URL",
+	"description": "Fetch scores for Pagespeed Insights by page URL(s) via npm",
 	"main": "app.js",
 	"type": "module",
 	"scripts": {
